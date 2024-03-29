@@ -20,5 +20,10 @@ namespace Cookbook
         {
             InitializeComponent();
         }
+
+        private void KhmerCuisine_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

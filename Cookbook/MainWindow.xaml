@@ -7,6 +7,7 @@
         mc:Ignorable="d" FontSize="26"
         Title="MainWindow" Height="450" Width="800">
     <Window.Resources>
+        <local:HalfConverter x:Key="HalfConverter"/>
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
                 <Setter.Value>
@@ -78,9 +79,73 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button Content="Khmer" Background="#FF3576F5" Click="KhmerCuisine_Click" Margin="8,8,0,0"/>
-            <Button Content="Thai" Background="#FFE0A82D" Grid.Column="1" Margin="5,8,0,0"/>
-            <Button Content="Laos" Background="#FFFF6457" Grid.Column="2" Margin="5,8,8,0"/>
+            <Button x:Name="khmer" Content="Khmer" Background="#FF3576F5" Click="KhmerCuisine_Click" HorizontalAlignment="Stretch" >
+                <Button.RenderTransform>
+                    <ScaleTransform x:Name="khmerScale" CenterX="{Binding ElementName=khmer,Path=ActualWidth, Converter={StaticResource HalfConverter}}"/>
+                </Button.RenderTransform>
+                <Button.Triggers>
+                    <EventTrigger RoutedEvent="MouseEnter">
+                        <BeginStoryboard>
+                            <Storyboard AutoReverse="True">
+                                <DoubleAnimation Storyboard.TargetName="khmerScale" Storyboard.TargetProperty="ScaleX"
+                                                 From="1" To="0.8">
+                                    <DoubleAnimation.EasingFunction>
+                                        <BounceEase EasingMode="EaseInOut" Bounces="2" Bounciness="2"/>
+                                    </DoubleAnimation.EasingFunction>
+                                </DoubleAnimation>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Button.Triggers>
+            </Button>
+            <Button x:Name="thai" Content="Thai" Background="#FFE0A82D" Grid.Column="1" Margin="5,8,0,0">
+                <Button.RenderTransform>
+                    <RotateTransform x:Name="thaiRotate"
+                                     CenterX="{Binding ElementName=thai,Path=ActualWidth, Converter={StaticResource HalfConverter}}"
+                                     CenterY="{Binding ElementName=thai,Path=ActualHeight, Converter={StaticResource HalfConverter}}"/>
+                </Button.RenderTransform>
+                <Button.Triggers>
+                    <EventTrigger RoutedEvent="MouseEnter">
+                        <BeginStoryboard>
+                            <Storyboard AutoReverse="True">
+                                <DoubleAnimation Storyboard.TargetName="thaiRotate" Storyboard.TargetProperty="Angle"
+                                 From="0" To="15">
+                                    <DoubleAnimation.EasingFunction>
+                                        <CircleEase EasingMode="EaseInOut"/>
+                                    </DoubleAnimation.EasingFunction>
+                                </DoubleAnimation>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Button.Triggers>
+            </Button>
+            <Button x:Name="laos" Content="Laos" Background="#FFFF6457" Grid.Column="2" Margin="5,8,8,0">
+                <Button.RenderTransform>
+                    <ScaleTransform x:Name="laosScale"
+                     CenterX="{Binding ElementName=laos,Path=ActualWidth, Converter={StaticResource HalfConverter}}"
+                     CenterY="{Binding ElementName=laos,Path=ActualHeight, Converter={StaticResource HalfConverter}}"/>
+                </Button.RenderTransform>
+                <Button.Triggers>
+                    <EventTrigger RoutedEvent="MouseEnter">
+                        <BeginStoryboard>
+                            <Storyboard AutoReverse="True" Duration="0:0:0.800">
+                                <DoubleAnimation Storyboard.TargetName="laosScale" Storyboard.TargetProperty="ScaleX"
+                 From="1" To="0.8">
+                                    <DoubleAnimation.EasingFunction>
+                                        <CircleEase EasingMode="EaseInOut"/>
+                                    </DoubleAnimation.EasingFunction>
+                                </DoubleAnimation>
+                                <DoubleAnimation Storyboard.TargetName="laosScale" Storyboard.TargetProperty="ScaleY"
+From="1" To="0.8">
+                                    <DoubleAnimation.EasingFunction>
+                                        <CubicEase EasingMode="EaseIn"/>
+                                    </DoubleAnimation.EasingFunction>
+                                </DoubleAnimation>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Button.Triggers>
+            </Button>
             <Button Content="Malaysian" Background="#FF30C03F" Grid.Row="1" Grid.Column="0" Margin="8,5,0,0"/>
             <Button Content="Japanese" Background="#FF55DBBF" Grid.Row="1" Grid.Column="1" Margin="5,5,0,0"/>
             <Button Content="Chinese" Background="#FFE8445D" Grid.Row="1" Grid.Column="2" Margin="5,5,8,0"/>
